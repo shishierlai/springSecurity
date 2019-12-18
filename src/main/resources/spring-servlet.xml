@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.1.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+http://www.springframework.org/schema/jee
+http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.shi"/>
+
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+    <context:annotation-config/>
+
+    <!--JSON-->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes" value="application/json;charset=UTF-8" />
+                <property name="features">
+                    <list>
+                        <value>WriteMapNullValue</value>
+                        <value>WriteNullStringAsEmpty</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+        <mvc:argument-resolvers>
+            <bean class="com.shi.orm.component.ArgumentResolver" />
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+    <!--JSON 结束-->
+    <!--配置文件-->
+    <!--<context:property-placeholder location="classpath:config.properties" system-properties-mode="OVERRIDE" />-->
+
+    <!--&lt;!&ndash;配置MultipartResolver 用于文件上传 使用spring的CommosMultipartResolver 设置上传文件的最大尺寸为5MB&ndash;&gt;-->
+    <!--&lt;!&ndash;defaultEncoding：这里设置默认的文件编码为UTF-8，必须与用户JSP的默认编码一致；&ndash;&gt;-->
+    <!--&lt;!&ndash;maxUploadSize：设置允许上传的最大文件大小,以字节为单位计算,当设为-1时表示无限制,默认是-1&ndash;&gt;-->
+    <!--&lt;!&ndash;uploadTempDir：设置上传文件时的临时目录,默认是Servlet容器的临时目录&ndash;&gt;-->
+    <!--&lt;!&ndash;maxInMemorySize：设置在文件上传时允许写到内存中的最大值,以字节为单位计算,默认是10240&ndash;&gt;-->
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"-->
+          <!--p:defaultEncoding="UTF-8" p:maxUploadSize="20971520" />-->
+
+    <!-- 模板解析器  -->
+    <bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="/WEB-INF/templates/" />
+        <property name="suffix" value=".html" />
+        <property name="templateMode" value="HTML5" />
+        <property name="cacheable" value="false" />
+        <property name="characterEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
+    </bean>
+
+    <bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine" />
+        <property name="characterEncoding"  value="UTF-8" />
+    </bean>
+
+
+
+    <!-- 其他工具 -->
+    <bean id="exceptionResolver" class="com.shi.orm.exception.ExceptionHandler"/>
+</beans>
