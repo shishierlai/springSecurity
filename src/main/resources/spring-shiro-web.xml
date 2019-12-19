@@ -22,7 +22,7 @@
     </bean>
 
     <!--Realm实现-->
-    <bean id="userRealm" class="com.shi.shiro.ext.LoginRealm">
+    <bean id="userRealm" class="com.shi.shiro.realm.shiroRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
         <!-- 配置缓存相关 -->
         <!-- 启用缓存 -->
@@ -71,24 +71,11 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
-                /static/** = anon
-                /pages/readme.html = anon
+
                 /login = anon
                 /logout = anon
-                /verify = anon
-                /captcha = anon
-                /error* = anon
-                /pages/css/**= anon
-                /pages/fonts/**= anon
-                /pages/img/**= anon
-                /pages/js/**= anon
-                /pages/login** = anon
-
-
                 /api/**=authc
                 /pages/** = authc
-
-
 
             </value>
         </property>
