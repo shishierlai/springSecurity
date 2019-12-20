@@ -8,12 +8,11 @@ import java.util.Map;
 
 public interface AdapterMapper {
 
-
-    @Select({"$sql"})
-    List executeQuery(Map var);
+    @Select({"${sql}"})
+    List executeQuery(Map map);
 
     @Update({"${sql}"})
-    int executeUpdate(Map var);
+    int executeUpdate(Map map);
 
 
 }

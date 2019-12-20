@@ -7,9 +7,9 @@
     <settings>
         <setting name="jdbcTypeForNull" value="NULL"/>
     </settings>
-    <objectWrapperFactory type="com.shi.orm.stereotype.batis.plugin.MapWrapperFactory"/>
+    <objectWrapperFactory type="com.shi.orm.stereotype.plugin.MapWrapperFactory"/>
     <plugins>
-        <plugin interceptor="com.shi.orm.stereotype.batis.ResultTypeInterceptor"/>
+        <plugin interceptor="com.shi.orm.stereotype.ResultTypeInterceptor"/>
     </plugins>
 
 

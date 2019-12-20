@@ -48,7 +48,7 @@ public class BaseDAO {
                 sql=new StringBuilder();
                 Map<String, Object> values1 = new HashMap();
                 CommonOrmUtils.generateUpdateSql(sql, values1,vo);
-                int updates1 = this.excuteAdapter.executeUpdate(sql.toString(), values1);
+                int updates1 = excuteAdapter.executeUpdate(sql.toString(), values1);
                 if (updates1 != 1) {
                     throw new BaseOrmException("更新失败：可能是该数据已过期！");
                 }
@@ -77,7 +77,7 @@ public class BaseDAO {
 
         Map<String, Object> values = new HashMap();
         CommonOrmUtils.generateRemoveSql(sql, values, clz,id);
-        int updates = this.excuteAdapter.executeUpdate(sql.toString(), values);
+        int updates = excuteAdapter.executeUpdate(sql.toString(), values);
         if (updates != 1) {
             throw new BaseOrmException("更新失败：可能是该数据已过期！");
         } else {
@@ -92,7 +92,7 @@ public class BaseDAO {
         StringBuilder sql = new StringBuilder();
         Map<String, Object> values = new HashMap();
         CommonOrmUtils.generateDeleteSql(sql, values, id, clz);
-        int updates = this.excuteAdapter.executeUpdate(sql.toString(), values);
+        int updates = excuteAdapter.executeUpdate(sql.toString(), values);
         return updates;
     }
 
@@ -102,7 +102,7 @@ public class BaseDAO {
     public <T extends ValueObject> T queryValueByID(Class<T> clz,String id)throws BaseOrmException {
 
         Condition cond = new Condition();
-        cond.eq("ID", id);
+        cond.eq("id", id);
         List<T> list = this.queryValueByCond(clz, cond);
         if (list != null && list.size() > 1) {
             throw new BaseOrmException("预期返回条数不大于1，实际返回条数" + list.size());
@@ -120,7 +120,7 @@ public class BaseDAO {
         StringBuilder sql = new StringBuilder();
         Map<String, Object> values = new HashMap();
         CommonOrmUtils.generateQuerySql(sql, values, fieldList, tableName, "a", cond);
-        List<T> list = this.excuteAdapter.executeQuery(sql.toString(), values, clz);
+        List<T> list = excuteAdapter.executeQuery(sql.toString(), values, clz);
 
         return list;
     }

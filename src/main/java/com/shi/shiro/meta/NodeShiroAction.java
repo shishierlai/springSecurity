@@ -1,8 +1,8 @@
 package com.shi.shiro.meta;
 
 
-import com.shi.config.stereotype.NodeActionMapping;
-import com.shi.config.stereotype.SysNodeAction;
+import com.shi.config.stereotype.node.NodeActionMapping;
+import com.shi.config.stereotype.node.SysNodeAction;
 
 @SysNodeAction
 public interface NodeShiroAction {

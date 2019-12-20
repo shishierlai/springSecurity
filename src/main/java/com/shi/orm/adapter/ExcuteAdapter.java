@@ -1,11 +1,13 @@
 package com.shi.orm.adapter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class ExcuteAdapter {
 
     @Autowired
@@ -21,7 +23,7 @@ public class ExcuteAdapter {
         if (values != null) {
             req.putAll(values);
         }
-        return this.adapterMapper.executeUpdate(req);
+        return adapterMapper.executeUpdate(req);
     }
 
     public <T> List<T> executeQuery(String sql, Map<String,Object> values, Class<T> clz){
@@ -32,7 +34,7 @@ public class ExcuteAdapter {
             req.putAll(values);
         }
 
-        return this.adapterMapper.executeQuery(req);
+        return adapterMapper.executeQuery(req);
     }
 
 

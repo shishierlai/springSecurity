@@ -174,7 +174,7 @@ public class CommonOrmUtils {
     //4.generateDeleteSql 生成删除数据语句
     public static <T extends ValueObject> void generateDeleteSql(StringBuilder sql, Map<String, Object> values, String id, Class<T> clz) {
         String tableName = getTableFromClz(clz);
-        sql.append(" delete from ").append(tableName).append(" a ");
+        sql.append(" delete from \"").append(tableName).append("\" a ");
         StringBuilder whereStr = new StringBuilder();
 
         whereStr.append(" and a.ID=\'").append(id+"\'");
@@ -191,19 +191,15 @@ public class CommonOrmUtils {
             sql.append(tableAlias + "." + (String)fields.get(i));
         }
 
-        sql.append(" from ").append(table).append(" ").append(tableAlias);
-        Iterator var10;
+        sql.append(" from \"").append(table).append("\" ").append(tableAlias);
+
         sql.append(" where 1=1 ");
         //如果有Condition条件查找
         if (cond.getCompares() != null) {
-            var10 = cond.getCompares().iterator();
-
-            while(var10.hasNext()) {
-                ICompareBean item = (ICompareBean)var10.next();
-                processCondition(tableAlias, item, sql, values);
+            for (ICompareBean item : cond.getCompares()) {
+                processCondition(tableAlias,item, sql, values);
             }
-
-            sql.append(" and coalesce(" + tableAlias + ".dr,0)=0");
+            sql.append(" and coalesce("+tableAlias+".dr,0)=0");
         }
 
 
@@ -234,10 +230,11 @@ public class CommonOrmUtils {
             CompareBeanImpl bean = (CompareBeanImpl)item;
             String field = tableAlias + "." + bean.getField();
             switch(bean.getType()) {
-                case EQ:
-                    sb.append(" and ").append(field).append("= #{p" + paramIdx + "}");
-                    values.put("p" + paramIdx, bean.getValue());
+                case EQ: {
+                    sb.append(" and ").append(field).append("= #{p"+paramIdx+"}");
+                    values.put("p"+paramIdx,bean.getValue());
                     break;
+                }
                 default:
                     throw new BaseOrmException("错误的ConditionCompareBean类型");
             }

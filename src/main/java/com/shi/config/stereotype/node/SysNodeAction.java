@@ -1,4 +1,4 @@
-package com.shi.config.stereotype;
+package com.shi.config.stereotype.node;
 
 import java.lang.annotation.*;
 

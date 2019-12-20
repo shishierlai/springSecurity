@@ -1,9 +1,9 @@
 package com.shi.shiro.meta;
 
 
-import com.shi.config.stereotype.Module;
-import com.shi.config.stereotype.NodeMapping;
-import com.shi.config.stereotype.SysNode;
+import com.shi.config.stereotype.node.Module;
+import com.shi.config.stereotype.node.NodeMapping;
+import com.shi.config.stereotype.node.SysNode;
 
 @SysNode
 public interface NodeShiro {
