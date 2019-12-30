@@ -16,12 +16,12 @@ public class MainController {
 
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public ModelAndView index(Map model) throws Exception {
-        return new ModelAndView(new RedirectView("pages/index.html"));
+        return new ModelAndView(new RedirectView("/login.html"));
     }
 
     @RequestMapping(value = "/main",method = RequestMethod.GET)
     public ModelAndView main(Map model) throws Exception {
-        return new ModelAndView(new RedirectView("pages/index.html"));
+        return new ModelAndView(new RedirectView("/person.html#"));
     }
 
 

@@ -125,4 +125,25 @@ public class BaseDAO {
         return list;
     }
 
+    /**
+     * 根据Condtion 返回认知上唯一的数据
+     * @param clz
+     * @param cond
+     * @param <T>
+     * @return
+     * @throws BaseOrmException
+     */
+    public <T extends ValueObject> T queryOneValueByCond(Class<T> clz,Condition cond) throws BaseOrmException {
+        List<T> list = queryValueByCond(clz,cond);
+        if (list != null && list.size() > 1) {
+            throw new BaseOrmException("预期返回条数不大于1，实际返回条数" + list.size());
+        } else if (list == null || list.size() == 0) {
+            return null;
+        }
+        return list.get(0);
+    }
+
+    public List<String> queryForList(String sql, Map<String, Object> values, Class<String> resultType) {
+        return excuteAdapter.executeQuery(sql,values,resultType);
+    }
 }
