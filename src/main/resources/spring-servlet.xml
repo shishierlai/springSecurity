@@ -77,6 +77,6 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd http://www.springfr
 
 
 
-    <!-- 其他工具 -->
-    <!--<bean id="exceptionResolver" class="com.shi.orm.exception.ExceptionHandler"/>-->
+    <!-- 统一错误管理工具 -->
+    <bean id="exceptionResolver" class="com.shi.config.web.ExceptionHandler"/>
 </beans>

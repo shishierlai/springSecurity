@@ -7,6 +7,8 @@ public class Condition {
 
     private List<ICompareBean> compares=new ArrayList<>();
 
+
+
     public Condition() {
 
     }

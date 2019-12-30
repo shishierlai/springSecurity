@@ -143,7 +143,21 @@ public class BaseDAO {
         return list.get(0);
     }
 
-    public List<String> queryForList(String sql, Map<String, Object> values, Class<String> resultType) {
+    public <T> List<T> queryForList(String sql, Map<String, Object> values, Class<T> resultType) {
         return excuteAdapter.executeQuery(sql,values,resultType);
     }
+
+
+    public <T extends ValueObject> List<T> queryForAllList(Class<T> clz) {
+        String tableName = CommonOrmUtils.getTableFromClz(clz);
+        Map<String, Object> values = new HashMap();
+        StringBuilder sql = new StringBuilder();
+        CommonOrmUtils.generateQuerySql(sql, values, null, tableName, "a", null);
+        return excuteAdapter.executeQuery(sql.toString(),values,clz);
+    }
+
+
+
+
+
 }

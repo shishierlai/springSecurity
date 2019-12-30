@@ -1,6 +1,7 @@
 package com.shi.shiro.service;
 
 import com.shi.orm.core.BaseDAO;
+import com.shi.orm.core.condition.Condition;
 import com.shi.orm.utils.GenerateID;
 import com.shi.shiro.utils.PasswordHelpter;
 import com.shi.shiro.vo.UserVo;
@@ -32,5 +33,13 @@ public class LoginService {
 
     private void addOrUpdateUser(UserVo user) {
         baseDAO.insertOrUpdateValueObject(user);
+    }
+
+    public UserVo getUserByLoginName(String login_code) {
+        Condition cond=new Condition();
+        cond.eq("login_code",login_code);
+        UserVo userVo=baseDAO.queryOneValueByCond(UserVo.class,cond);
+        return userVo;
+
     }
 }

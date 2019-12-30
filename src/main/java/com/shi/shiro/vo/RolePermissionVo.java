@@ -8,7 +8,7 @@ import com.shi.orm.core.stereotype.ValueObject;
 * * 角色权限表
 **/
 @Table(name = "UserPermission")
-public class UserPermissionVo extends ValueObject {
+public class RolePermissionVo extends ValueObject {
 
     @Column(name = "ID")
     private String id;
